@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+struct TreeNode {
+    int val;
+    struct TreeNode * left;
+    struct TreeNode * right;
+    TreeNode(int x): val(x), left(NULL), right(NULL) {}
+};
+
+vector<int> num(1000);
+int maxDepth = -1;      // 初值设为负数，以免造成错误
+
+
+// 【递归】地建立二叉排序树
+TreeNode* buildBST(TreeNode* root, int val) {
+    if (root == NULL) {
+        root = new TreeNode(val);
+        return root;
+    }
+    
+    if (val <= root->val) {
+        root->left = buildBST(root->left, val);
+    } else {
+        root->right = buildBST(root->right, val);
+    }
+    return root;
+}
+
+ 
+
+// 【递归】
+// 整体来看，DFS 函数做完之后，把一棵树的各层结点数写到了外部向量中
+// 类似二叉树的先序遍历
+void DFS(TreeNode* root, int depth) {       // 传入参数：根结点、根结点所在层数
+    if (root == NULL) {
+        maxDepth = max(depth - 1, maxDepth);
+        return ;
+    }
+    
+    num[depth]++;
+    DFS(root->left, depth + 1);
+    DFS(root->right, depth + 1);
+    return ;
+}
+
+
+int main() {
+    int nodeNum, key;
+    scanf("%d", &nodeNum);
+    // 建立二叉树
+    TreeNode* root = NULL;
+    while (nodeNum--) {
+        scanf("%d", &key);
+        root = buildBST(root, key);
+    }
+    // 遍历 BST 统计各层结点数
+    DFS(root, 0);       // 根结点设为 0 层
+    printf("%d + %d = %d\n", num[maxDepth], num[maxDepth - 1], num[maxDepth] + num[maxDepth - 1]);
+
+    return 0;
+}
+
