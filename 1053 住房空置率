@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int n;        // 户数
+    int obsThresh;    // 观察期阈值
+    double minCon, cspt;    // 最小使用量、某户的单日用量
+    int obs;        		// 各户的观察时间
+    int suspect = 0, confirmed = 0;        // 可能空置、空置户数
+
+    cin >> n >> minCon >> obsThresh;
+    for (int i = 0; i < n; i++) {
+        int count = 0;
+        cin >> obs;
+        for (int j = 0; j < obs; j++) {
+            cin >> cspt;
+            if (cspt < minCon)  count++;
+        }
+        if (count > obs / 2) {
+            obs > obsThresh ? confirmed++ : suspect++;
+        }
+    }
+    double ratioSus = (double)suspect / n * 100;
+    double radioCfm = (double)confirmed / n * 100;
+    printf("%.1f%% %.1f%%\n", ratioSus, radioCfm);
+
+    return 0;
+}
