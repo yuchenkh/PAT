@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+bool helper(int a, int b) {
+    if (a > b) {
+        swap(a, b);
+    }
+    for (int i = 2; i <= a; i++) {
+        if (a % i == 0 && b % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    int nu1, nu2;   // 分子
+    int de1, de2;   // 分母
+    int k;      // 指定的分母
+    scanf("%d/%d %d/%d %d", &nu1, &de1, &nu2, &de2, &k);
+    
+    if (nu1 * de2 > nu2 * de1) {        // 保持在整型的世界里计算
+        swap(nu1, nu2);
+        swap(de1, de2);
+    }
+    int i = 1;
+    while (nu1 * k >= i * de1) {
+        i++;
+    }
+    int flag = 0;
+    for ( ; i * de2 < nu2 * k; i++) {
+        if (helper(i, k)) {
+            printf("%s%d/%d", flag ? " " : "", i, k);
+            flag = 1;
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
