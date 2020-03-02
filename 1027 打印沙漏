@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int N, row = 0;         // 双排的行数
+    char c;
+    cin >> N >> c;
+    for (int i = 0; i < N; i++) {
+        if ((2 * i * (i + 2) + 1) > N) {
+            row = i - 1;
+            break;
+        }
+    }
+    // 上半部分的 row 行
+    for (int i = row; i >= 1; i--) {
+        for (int k = row - i; k >= 1; k--) cout << " ";         // 每一行前面的 row - i 个空格
+        for (int j = i * 2 + 1; j >= 1; j--) cout << c;         // 每一行的 2i+1 个字符
+        cout << endl;
+    }
+    // 中间行和下半部分的 row 行
+    for (int i = 0; i <= row; i++) {
+        for (int k = row - i; k >= 1; k--) cout << " ";
+        for (int j = i * 2 + 1; j >= 1; j--) cout << c;
+        cout << endl;
+    }
+    // 剩余字符
+    cout << (N - (2 * row * (row + 2) + 1)) << endl;
+    return 0;
+}
