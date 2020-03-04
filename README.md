@@ -1,4 +1,4 @@
 # PAT
-PAT (Basic Level) Practice
+PAT Practice
 
 这是我的做题记录。
