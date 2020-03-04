@@ -1,0 +1,51 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string week[7] = {"MON ", "TUE ", "WED ", "THU ", "FRI ", "SAT ", "SUN "};
+
+
+int main() {
+    int hour = -1, minute = -1;
+    string s1, s2;
+    getline(cin, s1);
+    getline(cin, s2);
+    int i = 0;
+    while (i < s1.size() && i < s2.size()) {
+        char a = s1[i];
+        char b = s2[i];
+        if (a == b && a >= 'A' && a <= 'G') {
+            cout << week[a - 'A'];
+            break;
+        }
+        i++;
+    }
+
+    i++;
+    while (i < s1.size() && i < s2.size()){
+        char a = s1[i];
+        char b = s2[i];
+        if (a == b && (isdigit(a) || (a >= 'A' && a <= 'N'))) {
+            hour = isdigit(a) ? a - '0' : a - 'A' + 10;
+            break;
+        }
+        i++;
+    }
+    
+    getline(cin, s1);
+    getline(cin, s2);
+    int j = 0;
+    while (j < s1.size() && j < s2.size()) {
+        char a = s1[j];
+        char b = s2[j];
+        if (a == b && isalpha(a)) {
+            minute = j;
+            break;
+        }
+        j++;
+    }
+
+    printf("%02d:%02d\n", hour, minute);
+    return 0;
+}
