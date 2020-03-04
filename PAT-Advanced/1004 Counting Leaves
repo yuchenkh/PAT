@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+const int MAXN = 100;
+int maxDepth = -1;
+int leafNum[MAXN];        // 保存各层叶结点的个数
+vector<int> Tree[MAXN];        // 一个向量代表一个结点，存放的是其儿子结点
+
+
+// 【递归】地遍历树，确定各层的叶结点数，保存到数组中
+// 传入参数：某子树的根结点的序号和所处的层数
+void DFS(int index, int depth) {
+    if (Tree[index].size() == 0) {        // 递归的出口：叶结点
+        leafNum[depth]++;
+        maxDepth = max(depth, maxDepth);    // 更新最大深度
+        return;
+    }
+
+    for (int i = 0; i < Tree[index].size(); i++) {
+        DFS(Tree[index][i], depth + 1);
+    }
+    
+}
+
+int main() {
+    int n, m;        // 总结点数、非叶结点数
+    scanf("%d %d", &n, &m);
+    // 写入各非叶结点的信息，建立树
+    // 这颗逻辑上的树，在物理上就是一张二维表
+    for (int i = 0; i < m; i++) {
+        int id, childNum, c;        // id 号非叶结点
+        scanf("%d%d", &id, &childNum);
+        for (int j = 0; j < childNum; j++) {
+            scanf("%d", &c);        // 读入儿子的序号
+            Tree[id].push_back(c);   // 儿子的序号压入向量中
+        }
+    }
+
+    // 深度遍历该树，确定各层叶结点的个数，以及最大深度
+    DFS(1, 0);        // 根结点设为第 0 层
+
+    // 输出各层的叶结点数
+    printf("%d", leafNum[0]);
+    for (int i = 1; i <= maxDepth; i++) {
+        printf(" %d", leafNum[i]);
+    }
+    printf("\n");
+
+
+    return 0;
+}
