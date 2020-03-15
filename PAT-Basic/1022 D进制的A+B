@@ -1,0 +1,23 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+stack<int> ret;
+int main() {
+    int a, b, d;
+    cin >> a >> b >> d;
+    int sum = a + b;
+    if (sum == 0) {             // 特殊情况
+        cout << 0 << endl;
+        return 0;
+    }
+    while (sum != 0) {
+        ret.push(sum % d);
+        sum /= d;
+    }
+    while (!ret.empty()) {
+        cout << ret.top();
+        ret.pop();
+    }
+    cout << endl;
+    return 0;
+}
