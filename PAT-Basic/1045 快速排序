@@ -1,0 +1,42 @@
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n, cnt = 0, max = -1;
+//    vector<int> array(100000);
+    int array[100000], sArray[100000];
+    int mElem[100000];
+    
+    // 输入
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", array + i);
+        sArray[i] = array[i];
+    }
+    sort(sArray, sArray + n);       // 排序后的序列，用来和原序列对比确定可能的主元
+    
+    // 处理（n 次遍历）
+    for (int i = 0; i < n; i++) {
+        int x = array[i];
+        if (x == sArray[i] && x >= max) {
+            mElem[cnt++] = x;
+        }
+        if (x > max) {
+            max = x;
+        }
+    }
+    
+    // 输出
+    printf("%d\n", cnt);
+    for (int i = 0; i < cnt; i++) {
+        if (i != 0) printf(" ");
+        printf("%d", mElem[i]);
+    }
+    printf("\n");
+    
+    return 0;
+}
