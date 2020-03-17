@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+bool isPrime(int x) {
+    if (x == 0 || x == 1) {
+        return false;
+    }
+    for (int i = 2; i * i <= x; i++) {
+        if (x % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    int m, n;           // 共需要输出 n - m + 1 个素数
+    int x;
+    scanf("%d%d", &m, &n);
+   
+    int i = 1;
+    for (x = 2; i < m; x++) {
+        isPrime(x) ? i++ : 0;
+    }
+    for ( ; i <= n; x++) {
+        if (isPrime(x)) {
+            if ((i - m) % 10 == 0) {
+                printf("%d", x);
+            } else if ((i - m) % 10 == 9) {
+                printf(" %d\n", x);
+            } else {
+                printf(" %d", x);
+            }
+            i++;
+        }
+    }
+    if ((n - m + 1) % 10) {
+        printf("\n");
+    }
+    
+    return 0;
+}
