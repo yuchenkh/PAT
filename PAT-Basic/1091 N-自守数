@@ -1,0 +1,31 @@
+#include <cstdio>
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+const int MAXN = 9;
+
+int main() {
+    int M, x, y = 0;
+    int i;
+    cin >> M;
+    while (M--) {
+        cin >> x;
+        for (i = 1; i <= MAXN; i++) {
+            y = i * x * x;
+            string y1 = to_string(y);
+            string x1 = to_string(x);
+            if (y1.substr(y1.size() - x1.size()) == x1) {
+                break;
+            }
+        }
+        if (i <= MAXN) {
+            printf("%d %d\n", i, y);
+        } else {
+            printf("No\n");
+        }
+    }
+    
+    return 0;
+}
