@@ -1,0 +1,25 @@
+#include <iostream>
+#include <cstdio>
+
+using namespace std;
+const int teamNum = 1000;
+int team[teamNum + 1] = {0};     // 存放各个参赛队的成绩
+
+int main() {
+    int N, max = 0, t = 0;
+    cin >> N;
+    while (N--) {
+        int a, b, score;
+        scanf("%d-%d%d", &a, &b, &score);
+        team[a] += score;
+    }
+    for (int i = 1; i <= teamNum; i++) {
+        if (team[i] > max) {
+            max = team[i];
+            t = i;
+        }
+    }
+    printf("%d %d\n", t, max);
+
+    return 0;
+}
